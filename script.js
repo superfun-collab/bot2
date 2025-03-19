@@ -1,59 +1,21 @@
-/* 保留原有的樣式 */
-/* ... */
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1001;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-}
-
-.input-field {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.register-link {
-    margin-top: 15px;
-    text-align: center;
-}
-
-.register-link span {
-    color: #007bff;
-    cursor: pointer;
-}
-
-.back-btn {
-    cursor: pointer;
-    color: #333;
-    font-weight: bold;
-}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的網頁</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <button id="loginBtn">登入</button>
+        <div class="login-popup" id="loginPopup">
+            <input type="text" id="username" placeholder="請輸入帳號">
+            <input type="password" id="password" placeholder="請輸入密碼">
+            <button onclick="login()">登入</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
