@@ -1,50 +1,94 @@
-.login-button {
+.nav-container {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    top: 0;
+    right: 0;
+    padding: 20px;
+}
+
+.login-btn button {
+    padding: 8px 20px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-.login-button:hover {
-    background-color: #45a049;
+.login-btn button:hover {
+    background-color: #0056b3;
 }
 
-.login-form {
+.modal {
     display: none;
     position: fixed;
-    top: 70px;
-    right: 20px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
 }
 
-.login-form input {
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
     display: block;
-    margin: 10px 0;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
     padding: 8px;
-    width: 200px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.login-form button {
+form button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.login-form button:hover {
-    background-color: #45a049;
+form button:hover {
+    background-color: #0056b3;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+    color: #0056b3;
 }
