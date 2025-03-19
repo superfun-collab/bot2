@@ -1,0 +1,9 @@
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // 防止表單默認提交行為
+
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    
+    alert(`感謝你的提交, ${name}! 我們將聯絡你 (${email})`);
+});
+
