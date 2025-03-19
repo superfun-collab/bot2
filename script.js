@@ -48,3 +48,19 @@
 .login-form button:hover {
     background-color: #45a049;
 }
+// ... existing CSS ...
+        .register-link {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+// ... existing CSS ...
