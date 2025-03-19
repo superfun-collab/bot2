@@ -1,24 +1,5 @@
-.nav-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    padding: 20px;
-}
-
-.login-btn button {
-    padding: 8px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-.login-btn button:hover {
-    background-color: #0056b3;
-}
+/* 保留原有的樣式 */
+/* ... */
 
 .modal {
     display: none;
@@ -28,44 +9,32 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
+    z-index: 1001;
 }
 
 .modal-content {
     background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 300px;
-    position: relative;
-}
-
-.close {
+    padding: 30px;
+    border-radius: 8px;
     position: absolute;
-    right: 10px;
-    top: 5px;
-    font-size: 24px;
-    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input {
+.input-field {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
+    margin: 10px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-form button {
+.submit-btn {
     width: 100%;
     padding: 10px;
+    margin-top: 10px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -73,6 +42,18 @@ form button {
     cursor: pointer;
 }
 
-form button:hover {
-    background-color: #0056b3;
+.register-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.register-link span {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.back-btn {
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
 }
