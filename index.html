@@ -1,36 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>簡單網站</title>
+    <title>檔案下載網站</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>歡迎來到我的網站</h1>
+        <h1>檔案下載網站</h1>
     </header>
-    
-    <section id="about">
-        <h2>關於我們</h2>
-        <p>這是我創建的一個簡單網站，旨在展示如何快速建立網站。</p>
-    </section>
-    
-    <section id="contact">
-        <h2>聯絡我們</h2>
-        <form id="contact-form">
-            <label for="name">姓名:</label>
-            <input type="text" id="name" name="name" required><br><br>
-            
-            <label for="email">電子郵件:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            
-            <button type="submit">提交</button>
-        </form>
-    </section>
+
+    <main>
+        <section class="download-section">
+            <h2>下載檔案</h2>
+            <p>請點擊下面的按鈕來下載檔案。</p>
+            <a href="path/to/your/file.zip" class="download-button" download>點擊下載</a>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 我的網站</p>
+        <p>&copy; 2025 檔案下載網站</p>
     </footer>
 
     <script src="script.js"></script>
