@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>檔案下載網站</title>
+    <title>登入</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>檔案下載網站</h1>
+        <div class="header-container">
+            <h1>登入</h1>
+            <a href="register.html" class="register-link">註冊新帳號</a>
+        </div>
     </header>
 
     <main>
-        <section class="download-section">
-            <h2>下載檔案</h2>
-            <p>請點擊下面的按鈕來下載檔案。</p>
-            <a href="path/to/your/file.zip" class="download-button" download>點擊下載</a>
+        <section class="login-section">
+            <h2>請輸入帳號和密碼</h2>
+            <form id="login-form">
+                <label for="username">帳號:</label>
+                <input type="text" id="username" required>
+                <label for="password">密碼:</label>
+                <input type="password" id="password" required>
+                <button type="submit" class="login-button">登入</button>
+            </form>
         </section>
     </main>
 
