@@ -76,19 +76,3 @@ form button {
 form button:hover {
     background-color: #0056b3;
 }
-
-.register-link {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.register-link a {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.register-link a:hover {
-    text-decoration: underline;
-    color: #0056b3;
-}
