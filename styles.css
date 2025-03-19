@@ -1,111 +1,31 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const users = [];
-    let currentUser = null;
+const loginBtn = document.getElementById('loginBtn');
+const loginPopup = document.getElementById('loginPopup');
 
-    // 獲取所有需要的元素
-    const loginBtn = document.getElementById('loginBtn');
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    const showRegisterBtn = document.getElementById('showRegister');
-    const submitLoginBtn = document.getElementById('submitLogin');
-    const submitRegisterBtn = document.getElementById('submitRegister');
-    const backBtn = document.getElementById('backBtn');
-    const mainButton = document.getElementById('myButton');
+loginBtn.addEventListener('click', () => {
+    if (loginPopup.style.display === 'block') {
+        loginPopup.style.display = 'none';
+    } else {
+        loginPopup.style.display = 'block';
+    }
+});
 
-    // 顯示登入表單
-    loginBtn.addEventListener('click', function() {
-        loginForm.style.display = 'block';
-    });
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    if (username && password) {
+        alert('登入成功！\n帳號：' + username);
+        loginPopup.style.display = 'none';
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    } else {
+        alert('請輸入帳號和密碼！');
+    }
+}
 
-    // 顯示註冊表單
-    showRegisterBtn.addEventListener('click', function() {
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-        backBtn.style.display = 'block';
-    });
-
-    // 返回按鈕
-    backBtn.addEventListener('click', function() {
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'block';
-        backBtn.style.display = 'none';
-    });
-
-    // 註冊功能
-    submitRegisterBtn.addEventListener('click', function() {
-        const displayName = document.getElementById('regDisplayName').value;
-        const username = document.getElementById('regUsername').value;
-        const usernameConfirm = document.getElementById('regUsernameConfirm').value;
-        const password = document.getElementById('regPassword').value;
-        const passwordConfirm = document.getElementById('regPasswordConfirm').value;
-
-        if (!displayName || !username || !usernameConfirm || !password || !passwordConfirm) {
-            alert('請填寫所有欄位');
-            return;
-        }
-
-        if (username !== usernameConfirm) {
-            alert('帳號確認不符');
-            return;
-        }
-
-        if (password !== passwordConfirm) {
-            alert('密碼確認不符');
-            return;
-        }
-
-        if (users.some(user => user.username === username)) {
-            alert('此帳號已被註冊');
-            return;
-        }
-
-        users.push({
-            displayName,
-            username,
-            password
-        });
-
-        alert('註冊成功！');
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'block';
-        backBtn.style.display = 'none';
-    });
-
-    // 登入功能
-    submitLoginBtn.addEventListener('click', function() {
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
-
-        const user = users.find(u => u.username === username && u.password === password);
-
-        if (!user) {
-            alert('帳號或密碼錯誤，或尚未註冊');
-            return;
-        }
-
-        currentUser = user;
-        loginForm.style.display = 'none';
-        loginBtn.textContent = `${user.displayName}`;
-        alert('登入成功！');
-    });
-
-    // 攔截未登入用戶的點擊
-    document.addEventListener('click', function(e) {
-        if (!currentUser && 
-            !e.target.closest('#loginForm') && 
-            !e.target.closest('#registerForm') && 
-            !e.target.closest('#loginBtn')) {
-            alert('請先登入');
-            loginForm.style.display = 'block';
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    });
-
-    // 主按鈕點擊事件
-    mainButton.addEventListener('click', function(e) {
-        if (currentUser) {
-            alert('你點擊了按鈕！');
-        }
-    });
+// 點擊其他地方關閉登入視窗
+document.addEventListener('click', (e) => {
+    if (!loginPopup.contains(e.target) && e.target !== loginBtn) {
+        loginPopup.style.display = 'none';
+    }
 });
