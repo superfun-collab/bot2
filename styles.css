@@ -11,9 +11,3 @@ function login() {
     // 這裡可以添加登入邏輯
     alert('登入功能待實作');
 }
-// ... existing JavaScript ...
-        function showRegister() {
-            alert('註冊功能待實作');
-            // 這裡可以跳轉到註冊頁面或顯示註冊表單
-        }
-// ... existing JavaScript ...
