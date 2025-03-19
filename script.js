@@ -1,69 +1,66 @@
-/* 簡約風格 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// 註冊功能
+document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
+    const username = document.getElementById("reg-username").value;
+    const account = document.getElementById("reg-account").value;
+    const confirmAccount = document.getElementById("confirm-account").value;
+    const password = document.getElementById("reg-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
 
-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
+    // 確認帳號和密碼一致
+    if (account !== confirmAccount) {
+        alert("帳號不一致！");
+        return;
+    }
+    if (password !== confirmPassword) {
+        alert("密碼不一致！");
+        return;
+    }
 
-h1 {
-    font-size: 2.5rem;
-}
+    // 儲存帳號和密碼到 localStorage
+    localStorage.setItem("account", account);
+    localStorage.setItem("password", password);
 
-main {
-    padding: 20px;
-    text-align: center;
-}
+    alert("註冊成功！請登入。");
+    window.location.href = "login.html";
+});
 
-.download-section {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-}
+// 登入功能
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-}
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-.download-button {
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: #28a745;
-    color: white;
-    font-size: 1.2rem;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-}
+    const storedAccount = localStorage.getItem("account");
+    const storedPassword = localStorage.getItem("password");
 
-.download-button:hover {
-    background-color: #218838;
-}
+    if (username === storedAccount && password === storedPassword) {
+        alert("登入成功！");
+        localStorage.setItem("loggedIn", "true");  // 記錄登入狀態
+        window.location.href = "index.html";  // 進入首頁
+    } else {
+        alert("帳號或密碼錯誤，請註冊新帳號。");
+    }
+});
 
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    margin-top: 40px;
-}
+// 檢查是否已登入
+window.onload = function() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn !== "true") {
+        alert("請先登入");
+        window.location.href = "login.html";  // 轉到登入頁
+    }
+};
 
+// 防止未登入用戶訪問
+const downloadButton = document.querySelector('.download-button');
+if (downloadButton) {
+    downloadButton.addEventListener('click', function() {
+        if (localStorage.getItem("loggedIn") !== "true") {
+            alert("請先登入");
+            window.location.href = "login.html";  // 轉到登入頁
+        }
+    });
 }
