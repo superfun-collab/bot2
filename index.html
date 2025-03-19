@@ -1,165 +1,84 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>空白網頁</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            color: #333;
-        }
-        .login-btn {
-            position: absolute;
+        .login-button {
+            position: fixed;
             top: 20px;
             right: 20px;
-            padding: 10px 15px;
-            background-color: #007bff;
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-decoration: none;
+            font-size: 16px;
         }
-        .login-btn:hover {
-            background-color: #0056b3;
+
+        .login-button:hover {
+            background-color: #45a049;
         }
-        .login-form, .register-form {
+
+        .login-form {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 70px;
+            right: 20px;
             background-color: white;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .login-form input, .register-form input {
-            margin-bottom: 10px;
-            padding: 10px;
+
+        .login-form input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-form button {
             width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .login-form button, .register-form button {
             padding: 10px;
-            background-color: #007bff;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
         }
-        .login-form button:hover, .register-form button:hover {
-            background-color: #0056b3;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-        .register-link {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: #007bff;
-            text-decoration: none;
-        }
-        .register-link:hover {
-            text-decoration: underline;
-        }
-        .error-message {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
+
+        .login-form button:hover {
+            background-color: #45a049;
         }
     </style>
-    <script>
-        var registeredUsers = [];
-        var isLoggedIn = false;
-
-        function toggleLoginForm() {
-            var form = document.getElementById('loginForm');
-            var overlay = document.getElementById('overlay');
-            form.style.display = form.style.display === 'block' ? 'none' : 'block';
-            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function toggleRegisterForm() {
-            var registerForm = document.getElementById('registerForm');
-            var overlay = document.getElementById('overlay');
-            registerForm.style.display = registerForm.style.display === 'block' ? 'none' : 'block';
-            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
-            toggleLoginForm(); // Hide login form if showing
-        }
-
-        function registerUser() {
-            var username = document.getElementById('registerUsername').value;
-            var account = document.getElementById('registerAccount').value;
-            var password = document.getElementById('registerPassword').value;
-            registeredUsers.push({ username: username, account: account, password: password });
-            toggleRegisterForm();
-        }
-
-        function loginUser() {
-            var account = document.getElementById('loginAccount').value;
-            var password = document.getElementById('loginPassword').value;
-            var errorMessage = document.getElementById('errorMessage');
-
-            // Check if the account exists
-            var user = registeredUsers.find(user => user.account === account && user.password === password);
-            if (user) {
-                errorMessage.textContent = '';
-                isLoggedIn = true;
-                alert('登入成功！');
-                toggleLoginForm();
-            } else {
-                errorMessage.textContent = '請註冊帳戶';
-            }
-        }
-
-        function checkLogin(event) {
-            if (!isLoggedIn) {
-                event.preventDefault();
-                alert('請先登入');
-            }
-        }
-    </script>
 </head>
 <body>
-    <h1 onclick="checkLogin(event)">歡迎來到空白網頁！</h1>
-    <p onclick="checkLogin(event)">這是一個空白的網頁，您可以在這裡添加內容。</p>
-    <a href="#" class="login-btn" onclick="toggleLoginForm()">登入</a>
-
-    <div id="overlay" class="overlay" onclick="toggleLoginForm()"></div>
-    <div id="loginForm" class="login-form">
-        <h2>登入</h2>
-        <input type="text" id="loginAccount" placeholder="帳號" required>
-        <input type="password" id="loginPassword" placeholder="密碼" required>
-        <button onclick="loginUser()">提交</button>
-        <div id="errorMessage" class="error-message"></div>
-        <a href="#" class="register-link" onclick="toggleRegisterForm()">註冊帳號</a>
+    <button class="login-button" onclick="toggleLoginForm()">登入</button>
+    <div class="login-form" id="loginForm">
+        <input type="text" placeholder="帳號" required>
+        <input type="password" placeholder="密碼" required>
+        <button onclick="login()">登入</button>
     </div>
 
-    <div id="registerForm" class="register-form">
-        <h2>註冊帳號</h2>
-        <input type="text" id="registerUsername" placeholder="使用者名稱" required>
-        <input type="text" id="registerAccount" placeholder="帳號" required>
-        <input type="text" placeholder="確認帳號" required>
-        <input type="password" id="registerPassword" placeholder="密碼" required>
-        <input type="password" placeholder="確認密碼" required>
-        <button onclick="registerUser()">建立</button>
-        <button onclick="toggleRegisterForm()">返回</button>
-    </div>
+    <script>
+        function toggleLoginForm() {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm.style.display === 'block') {
+                loginForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'block';
+            }
+        }
+
+        function login() {
+            // 這裡可以添加登入邏輯
+            alert('登入功能待實作');
+        }
+    </script>
 </body>
 </html>
