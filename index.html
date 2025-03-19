@@ -1,58 +1,32 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-.login-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-}
-
-.login-popup {
-    display: none;
-    position: fixed;
-    top: 60px;
-    right: 20px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.login-popup input {
-    display: block;
-    margin: 10px 0;
-    padding: 8px;
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.login-popup button {
-    width: 100%;
-    padding: 8px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.login-popup button:hover {
-    background: #45a049;
-}
-
-#loginBtn {
-    padding: 8px 16px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bot2 登入與註冊功能的首頁</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back()">← 返回上一頁</button>
+    <button class="login-button" onclick="toggleForm('login')">登入</button>
+    <div id="login-form" class="form">
+        <h2>登入</h2>
+        <input type="text" id="login-account" placeholder="帳號" required>
+        <input type="password" id="login-password" placeholder="密碼" required>
+        <button type="button" onclick="login()">提交</button>
+        <span class="register-link" onclick="toggleForm('register')">註冊帳號</span>
+    </div>
+    <div id="register-form" class="form">
+        <h2>註冊</h2>
+        <input type="text" id="register-username" placeholder="使用者名稱" required>
+        <input type="text" id="register-account" placeholder="帳號" required>
+        <input type="text" id="confirm-account" placeholder="確認帳號" required>
+        <input type="password" id="register-password" placeholder="密碼" required>
+        <input type="password" id="confirm-password" placeholder="確認密碼" required>
+        <button type="button" onclick="register()">提交</button>
+        <span class="register-link" onclick="toggleForm('login')">已經有帳號？登入</span>
+    </div>
+    <h1>歡迎來到 bot2 登入與註冊功能的首頁</h1>
+    <script src="script.js"></script>
+</body>
+</html>
