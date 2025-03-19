@@ -1,31 +1,51 @@
-const loginBtn = document.getElementById('loginBtn');
-const loginPopup = document.getElementById('loginPopup');
+let registeredAccounts = [
+    { username: 'Admin', account: 'a0909033258@gmail.com', password: 'love369258', isAdmin: true }
+];
+let loggedIn = false;
 
-loginBtn.addEventListener('click', () => {
-    if (loginPopup.style.display === 'block') {
-        loginPopup.style.display = 'none';
-    } else {
-        loginPopup.style.display = 'block';
-    }
-});
+function toggleForm(formType) {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    loginForm.style.display = formType === 'login' ? 'block' : 'none';
+    registerForm.style.display = formType === 'register' ? 'block' : 'none';
+}
 
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    if (username && password) {
-        alert('登入成功！\n帳號：' + username);
-        loginPopup.style.display = 'none';
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
+function register() {
+    const username = document.getElementById('register-username').value;
+    const account = document.getElementById('register-account').value;
+    const confirmAccount = document.getElementById('confirm-account').value;
+    const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (account === confirmAccount && password === confirmPassword) {
+        registeredAccounts.push({ username, account, password, isAdmin: false });
+        alert('註冊成功！請登入。');
+        toggleForm('login');
     } else {
-        alert('請輸入帳號和密碼！');
+        alert('帳號或密碼不匹配，請檢查。');
     }
 }
 
-// 點擊其他地方關閉登入視窗
-document.addEventListener('click', (e) => {
-    if (!loginPopup.contains(e.target) && e.target !== loginBtn) {
-        loginPopup.style.display = 'none';
+function login() {
+    const account = document.getElementById('login-account').value;
+    const password = document.getElementById('login-password').value;
+    const user = registeredAccounts.find(acc => acc.account === account && acc.password === password);
+
+    if (user) {
+        loggedIn = true;
+        if (user.isAdmin) {
+            window.location.href = 'admin.html';
+        } else {
+            alert(`歡迎回來，${user.username}！`);
+            document.getElementById('login-form').style.display = 'none';
+        }
+    } else {
+        alert('請註冊帳戶。');
+    }
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.getElementById('login-form').style.display = 'none';
     }
 });
