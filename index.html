@@ -4,58 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>空白網頁</title>
-    <style>
-        .login-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .login-button:hover {
-            background-color: #45a049;
-        }
-
-        .login-form {
-            display: none;
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .login-form input {
-            display: block;
-            margin: 10px 0;
-            padding: 8px;
-            width: 200px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .login-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .login-form button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <button class="login-button" onclick="toggleLoginForm()">登入</button>
@@ -64,31 +13,6 @@
         <input type="password" placeholder="密碼" required>
         <button onclick="login()">登入</button>
     </div>
-
-    <script>
-        function toggleLoginForm() {
-            const loginForm = document.getElementById('loginForm');
-            if (loginForm.style.display === 'block') {
-                loginForm.style.display = 'none';
-            } else {
-                loginForm.style.display = 'block';
-            }
-        }
-
-        function login() {
-            // 這裡可以添加登入邏輯
-            alert('登入功能待實作');
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-// ... existing code ...
-    <div class="login-form" id="loginForm">
-        <input type="text" placeholder="帳號" required>
-        <input type="password" placeholder="密碼" required>
-        <button onclick="login()">登入</button>
-        <div class="register-link">
-            還沒有帳號？<a href="#" onclick="showRegister()">立即註冊</a>
-        </div>
-    </div>
-// ... existing code ...
