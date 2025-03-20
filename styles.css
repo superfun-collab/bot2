@@ -40,13 +40,13 @@ button {
     width: 100%;
     border-radius: 5px;
     margin: 5px 0;
+    transition: background-color 0.3s;
 }
 
 .login-btn {
     position: fixed;
     top: 10px;
     right: 10px;
-    left: auto;
     padding: 10px 15px;
     background-color: #007bff;
     color: white;
@@ -54,13 +54,19 @@ button {
     cursor: pointer;
     border-radius: 5px;
     z-index: 1000;
-    transform: none;
     width: auto;
+    transition: background-color 0.3s;
 }
 
 .login-btn:hover,
 button:hover {
     background-color: #0056b3;
+}
+
+.login-btn:focus,
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }
 
 p {
@@ -70,10 +76,12 @@ p {
 a {
     color: #007bff;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #0056b3;
 }
 
 .admin-container {
@@ -106,6 +114,7 @@ a:hover {
     position: absolute;
     top: 10px;
     right: 10px;
+    transition: background-color 0.3s;
 }
 
 .logout-btn:hover {
@@ -151,4 +160,5 @@ select {
     margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
 }
