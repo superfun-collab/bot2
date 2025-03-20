@@ -3,30 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的網站</title>
+    <title>登入</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 右上角按鈕 -->
-    <button class="login-btn" onclick="toggleLogin()">登入 / 註冊</button>
+    <!-- 左上角登入按鈕 -->
+    <button class="login-btn" onclick="window.location.href='index.html'">登入</button>
 
-    <!-- 登入 & 註冊彈出視窗 -->
-    <div id="authBox" class="auth-box">
-        <div id="loginForm">
-            <h2>登入</h2>
-            <input type="text" id="loginUser" placeholder="帳號">
-            <input type="password" id="loginPass" placeholder="密碼">
-            <button onclick="login()">登入</button>
-            <p>沒有帳號？<a href="#" onclick="switchToRegister()">註冊</a></p>
-        </div>
-
-        <div id="registerForm" style="display: none;">
-            <h2>註冊</h2>
-            <input type="text" id="registerUser" placeholder="帳號">
-            <input type="password" id="registerPass" placeholder="密碼">
-            <button onclick="register()">註冊</button>
-            <p>已有帳號？<a href="#" onclick="switchToLogin()">登入</a></p>
-        </div>
+    <div class="container">
+        <h2>登入</h2>
+        <input type="text" id="loginUser" placeholder="帳號">
+        <input type="password" id="loginPass" placeholder="密碼">
+        <button onclick="login()">登入</button>
+        <p>還沒有帳號？<a href="register.html">註冊</a></p>
     </div>
 
     <script src="script.js"></script>
