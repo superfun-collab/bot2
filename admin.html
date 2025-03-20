@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理員後台</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="admin-container">
         <h1>管理員後台</h1>
-        
         <button class="logout-btn" onclick="logout()">登出</button>
         
         <div class="admin-grid">
+            <!-- 用戶管理卡片 -->
             <div class="admin-card">
                 <h2>用戶管理</h2>
                 <button onclick="showUserList()">用戶列表</button>
@@ -33,24 +34,35 @@
                 </div>
             </div>
             
+            <!-- 系統設置卡片 -->
             <div class="admin-card">
                 <h2>系統設置</h2>
                 <button onclick="showSiteSettings()">網站設置</button>
                 <button onclick="showSecuritySettings()">安全設置</button>
                 <div id="settingsPanel" style="display: none;">
-                    <form id="siteSettingsForm">
-                        <input type="text" placeholder="網站名稱">
-                        <input type="text" placeholder="網站描述">
-                        <select id="securityLevel">
-                            <option value="low">低安全性</option>
-                            <option value="medium">中安全性</option>
-                            <option value="high">高安全性</option>
-                        </select>
+                    <form id="securityForm">
+                        <div class="form-group">
+                            <label>密碼強度要求：</label>
+                            <select name="passwordStrength">
+                                <option value="low">低（最少6位）</option>
+                                <option value="medium">中（最少8位，需包含數字）</option>
+                                <option value="high">高（最少10位，需包含數字和特殊符號）</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>登入嘗試次數限制：</label>
+                            <input type="number" name="loginAttempts" min="1" max="10" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label>session超時時間（分鐘）：</label>
+                            <input type="number" name="sessionTimeout" min="5" max="120" value="30">
+                        </div>
                         <button type="submit">保存設置</button>
                     </form>
                 </div>
             </div>
             
+            <!-- 數據統計卡片 -->
             <div class="admin-card">
                 <h2>數據統計</h2>
                 <button onclick="showDailyStats()">每日統計</button>
@@ -65,6 +77,7 @@
                 </div>
             </div>
             
+            <!-- 系統日誌卡片 -->
             <div class="admin-card">
                 <h2>系統日誌</h2>
                 <button onclick="showSystemLogs()">系統日誌</button>
@@ -80,6 +93,7 @@
                 </div>
             </div>
 
+            <!-- 備份還原卡片 -->
             <div class="admin-card">
                 <h2>備份還原</h2>
                 <button onclick="backupData()">數據備份</button>
@@ -94,63 +108,196 @@
 
     <script src="script.js"></script>
     <script>
+        // 登出功能
         function logout() {
             if(confirm('確定要登出嗎？')) {
                 window.location.href = 'index.html';
             }
         }
 
+        // 用戶列表功能
         function showUserList() {
-            document.getElementById('userManagement').style.display = 'block';
-            // 這裡添加獲取用戶列表的邏輯
+            const userManagement = document.getElementById('userManagement');
+            userManagement.style.display = 'block';
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const tbody = document.querySelector('#userTable tbody');
+            tbody.innerHTML = '';
+            
+            users.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.registerTime}</td>
+                    <td>${user.status || '正常'}</td>
+                    <td>
+                        <button onclick="banUser('${user.id}')" class="ban-btn">
+                            ${user.status === '封禁' ? '解封' : '封禁'}
+                        </button>
+                        <button onclick="deleteUser('${user.id}')" class="delete-btn">刪除</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
+        // 封禁用戶功能
         function showBannedUsers() {
-            // 顯示封禁用戶列表
-            alert('封禁用戶功能開發中');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const bannedUsers = users.filter(user => user.status === '封禁');
+            
+            const content = document.createElement('div');
+            content.innerHTML = `
+                <h3>封禁用戶列表</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>用戶ID</th>
+                            <th>封禁時間</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bannedUsers.map(user => `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.banTime || '-'}</td>
+                                <td><button onclick="unbanUser('${user.id}')">解封</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            const container = document.querySelector('.admin-container');
+            container.appendChild(content);
         }
 
+        // 用戶日誌功能
         function showUserLogs() {
-            // 顯示用戶日誌
-            alert('用戶日誌功能開發中');
+            const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+            const logViewer = document.getElementById('logViewer');
+            const logContent = document.getElementById('logContent');
+            
+            logViewer.style.display = 'block';
+            logContent.innerHTML = logs.map(log => `
+                <div class="log-entry ${log.type}">
+                    [${log.time}] ${log.message}
+                </div>
+            `).join('');
         }
 
-        function showSiteSettings() {
-            document.getElementById('settingsPanel').style.display = 'block';
-        }
-
+        // 安全設置功能
         function showSecuritySettings() {
-            // 顯示安全設置
-            alert('安全設置功能開發中');
+            const settingsPanel = document.getElementById('settingsPanel');
+            settingsPanel.style.display = 'block';
         }
 
+        // 統計圖表功能
         function showDailyStats() {
-            document.getElementById('statsChart').style.display = 'block';
-            // 這裡添加顯示統計圖表的邏輯
+            const ctx = document.getElementById('statisticsChart').getContext('2d');
+            const statsChart = document.getElementById('statsChart');
+            statsChart.style.display = 'block';
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                    datasets: [{
+                        label: '每日活躍用戶',
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '每日活躍用戶統計'
+                        }
+                    }
+                }
+            });
         }
 
+        // 月度統計功能
         function showMonthlyStats() {
-            // 顯示月度統計
-            alert('月度統計功能開發中');
+            const ctx = document.getElementById('statisticsChart').getContext('2d');
+            const statsChart = document.getElementById('statsChart');
+            statsChart.style.display = 'block';
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                    datasets: [{
+                        label: '月度新增用戶',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '月度用戶增長統計'
+                        }
+                    }
+                }
+            });
         }
 
-        function showSystemLogs() {
-            document.getElementById('logViewer').style.display = 'block';
-        }
-
+        // 錯誤日誌功能
         function showErrorLogs() {
-            // 顯示錯誤日誌
-            alert('錯誤日誌功能開發中');
+            const logs = JSON.parse(localStorage.getItem('errorLogs') || '[]');
+            const logViewer = document.getElementById('logViewer');
+            const logContent = document.getElementById('logContent');
+            
+            logViewer.style.display = 'block';
+            logContent.innerHTML = logs.map(log => `
+                <div class="log-entry error">
+                    [${log.time}] ERROR: ${log.message}
+                    <div class="error-details">
+                        Stack: ${log.stack || 'N/A'}
+                    </div>
+                </div>
+            `).join('');
         }
 
+        // 數據備份功能
         function backupData() {
-            // 執行數據備份
-            alert('數據備份功能開發中');
+            const data = {
+                users: JSON.parse(localStorage.getItem('users') || '[]'),
+                logs: JSON.parse(localStorage.getItem('userLogs') || '[]'),
+                errorLogs: JSON.parse(localStorage.getItem('errorLogs') || '[]'),
+                settings: JSON.parse(localStorage.getItem('securitySettings') || '{}'),
+                timestamp: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup-${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addLog('info', '系統數據備份完成');
         }
 
-        function showRestorePanel() {
-            document.getElementById('backupHistory').style.display = 'block';
-        }
+        // 頁面初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            showUserList();
+            showDailyStats();
+        });
     </script>
 </body>
 </html>
