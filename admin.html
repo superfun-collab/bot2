@@ -15,26 +15,84 @@
         <div class="admin-grid">
             <div class="admin-card">
                 <h2>用戶管理</h2>
-                <button onclick="showUsers()">查看用戶列表</button>
+                <button onclick="showUserList()">用戶列表</button>
+                <button onclick="showBannedUsers()">封禁用戶</button>
+                <button onclick="showUserLogs()">用戶日誌</button>
+                <div id="userManagement" style="display: none;">
+                    <table id="userTable">
+                        <thead>
+                            <tr>
+                                <th>用戶ID</th>
+                                <th>註冊時間</th>
+                                <th>狀態</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
             
             <div class="admin-card">
                 <h2>系統設置</h2>
-                <button onclick="showSettings()">管理系統設置</button>
+                <button onclick="showSiteSettings()">網站設置</button>
+                <button onclick="showSecuritySettings()">安全設置</button>
+                <div id="settingsPanel" style="display: none;">
+                    <form id="siteSettingsForm">
+                        <input type="text" placeholder="網站名稱">
+                        <input type="text" placeholder="網站描述">
+                        <select id="securityLevel">
+                            <option value="low">低安全性</option>
+                            <option value="medium">中安全性</option>
+                            <option value="high">高安全性</option>
+                        </select>
+                        <button type="submit">保存設置</button>
+                    </form>
+                </div>
             </div>
             
             <div class="admin-card">
                 <h2>數據統計</h2>
-                <button onclick="showStats()">查看統計數據</button>
+                <button onclick="showDailyStats()">每日統計</button>
+                <button onclick="showMonthlyStats()">月度報表</button>
+                <div id="statsChart" style="display: none;">
+                    <canvas id="statisticsChart"></canvas>
+                    <div class="stats-summary">
+                        <p>總用戶數：<span id="totalUsers">0</span></p>
+                        <p>今日活躍：<span id="activeToday">0</span></p>
+                        <p>本月新增：<span id="newThisMonth">0</span></p>
+                    </div>
+                </div>
             </div>
             
             <div class="admin-card">
-                <h2>日誌查詢</h2>
-                <button onclick="showLogs()">查看系統日誌</button>
+                <h2>系統日誌</h2>
+                <button onclick="showSystemLogs()">系統日誌</button>
+                <button onclick="showErrorLogs()">錯誤日誌</button>
+                <div id="logViewer" style="display: none;">
+                    <select id="logLevel">
+                        <option value="all">全部日誌</option>
+                        <option value="error">錯誤日誌</option>
+                        <option value="warning">警告日誌</option>
+                        <option value="info">信息日誌</option>
+                    </select>
+                    <div id="logContent" class="log-container"></div>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <h2>備份還原</h2>
+                <button onclick="backupData()">數據備份</button>
+                <button onclick="showRestorePanel()">數據還原</button>
+                <div id="backupHistory" style="display: none;">
+                    <h3>備份記錄</h3>
+                    <ul id="backupList"></ul>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
         function logout() {
             if(confirm('確定要登出嗎？')) {
@@ -42,20 +100,56 @@
             }
         }
 
-        function showUsers() {
-            alert('用戶管理功能開發中');
+        function showUserList() {
+            document.getElementById('userManagement').style.display = 'block';
+            // 這裡添加獲取用戶列表的邏輯
         }
 
-        function showSettings() {
-            alert('系統設置功能開發中');
+        function showBannedUsers() {
+            // 顯示封禁用戶列表
+            alert('封禁用戶功能開發中');
         }
 
-        function showStats() {
-            alert('數據統計功能開發中');
+        function showUserLogs() {
+            // 顯示用戶日誌
+            alert('用戶日誌功能開發中');
         }
 
-        function showLogs() {
-            alert('日誌查詢功能開發中');
+        function showSiteSettings() {
+            document.getElementById('settingsPanel').style.display = 'block';
+        }
+
+        function showSecuritySettings() {
+            // 顯示安全設置
+            alert('安全設置功能開發中');
+        }
+
+        function showDailyStats() {
+            document.getElementById('statsChart').style.display = 'block';
+            // 這裡添加顯示統計圖表的邏輯
+        }
+
+        function showMonthlyStats() {
+            // 顯示月度統計
+            alert('月度統計功能開發中');
+        }
+
+        function showSystemLogs() {
+            document.getElementById('logViewer').style.display = 'block';
+        }
+
+        function showErrorLogs() {
+            // 顯示錯誤日誌
+            alert('錯誤日誌功能開發中');
+        }
+
+        function backupData() {
+            // 執行數據備份
+            alert('數據備份功能開發中');
+        }
+
+        function showRestorePanel() {
+            document.getElementById('backupHistory').style.display = 'block';
         }
     </script>
 </body>
