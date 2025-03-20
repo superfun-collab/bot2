@@ -1,4 +1,4 @@
-/* 讓登入按鈕固定在右上角 */
+/* 右上角按鈕 */
 .login-btn {
     position: fixed;
     top: 10px;
@@ -15,9 +15,9 @@
     background-color: #0056b3;
 }
 
-/* 登入表單樣式 */
-.login-box {
-    display: none; /* 預設隱藏 */
+/* 登入 & 註冊彈出視窗 */
+.auth-box {
+    display: none;
     position: fixed;
     top: 50px;
     right: 10px;
