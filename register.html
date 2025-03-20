@@ -5,18 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>註冊</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .password-strength {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .weak { color: #dc3545; }
+        .medium { color: #ffc107; }
+        .strong { color: #28a745; }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
     <button class="login-btn" onclick="window.location.href='index.html'">登入</button>
 
     <div class="container">
         <h2>註冊</h2>
-        <input type="text" id="registerUser" placeholder="帳號">
-        <input type="password" id="registerPass" placeholder="密碼">
-        <button onclick="register()">註冊</button>
-        <p>已經有帳號？<a href="index.html">登入</a></p>
+        <form id="registerForm" onsubmit="return register(event)">
+            <div class="form-group">
+                <input type="text" id="registerUser" placeholder="帳號" required>
+                <div id="userError" class="error-message">帳號格式不正確</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="email" id="registerEmail" placeholder="電子郵件" required>
+                <div id="emailError" class="error-message">請輸入有效的電子郵件地址</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" id="registerPass" placeholder="密碼" required 
+                       onkeyup="checkPasswordStrength(this.value)">
+                <div id="passwordStrength" class="password-strength"></div>
+                <div id="passError" class="error-message">密碼必須至少8位，包含數字和字母</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" id="confirmPass" placeholder="確認密碼" required>
+                <div id="confirmError" class="error-message">兩次密碼輸入不一致</div>
+            </div>
+            
+            <button type="submit">註冊</button>
+            <p>已經有帳號？<a href="index.html">登入</a></p>
+        </form>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function checkPasswordStrength(password) {
+            const strengthDiv = document.getElementById('passwordStrength');
+            const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+            const mediumRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{6,})/;
+
+            if (strongRegex.test(password)) {
+                strengthDiv.innerHTML = '密碼強度：<span class="strong">強</span>';
+            } else if (mediumRegex.test(password)) {
+                strengthDiv.innerHTML = '密碼強度：<span class="medium">中</span>';
+            } else {
+                strengthDiv.innerHTML = '密碼強度：<span class="weak">弱</span>';
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function register(event) {
+            event.preventDefault();
+            
+            const user = document.getElementById('registerUser').value;
+            const email = document.getElementById('registerEmail').value;
+            const pass = document.getElementById('registerPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+            
+            // 重置錯誤提示
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            
+            // 驗證用戶名
+            if (user.length < 4) {
+                document.getElementById('userError').style.display = 'block';
+                return false;
+            }
+            
+            // 驗證郵箱
+            if (!validateEmail(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                return false;
+            }
+            
+            // 驗證密碼
+            if (pass.length < 8 || !/\d/.test(pass) || !/[a-zA-Z]/.test(pass)) {
+                document.getElementById('passError').style.display = 'block';
+                return false;
+            }
+            
+            // 驗證確認密碼
+            if (pass !== confirmPass) {
+                document.getElementById('confirmError').style.display = 'block';
+                return false;
+            }
+            
+            // 檢查用戶是否已存在
+            if (localStorage.getItem(user)) {
+                alert('該帳號已被註冊！');
+                return false;
+            }
+            
+            // 儲存用戶資料
+            const userData = {
+                username: user,
+                email: email,
+                password: pass,
+                registerTime: new Date().toISOString(),
+                status: 'active'
+            };
+            
+            localStorage.setItem(user, JSON.stringify(userData));
+            alert('註冊成功！請登入');
+            window.location.href = 'index.html';
+            
+            return false;
+        }
+    </script>
 </body>
 </html>
