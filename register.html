@@ -7,70 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button class="login-btn" onclick="window.location.href='index.html'">返回登入</button>
+    <button class="login-btn" onclick="window.location.href='index.html'">登入</button>
 
     <div class="container">
         <h2>註冊</h2>
-        <form id="registerForm" onsubmit="return validateForm()">
-            <input type="text" id="registerUser" placeholder="帳號" required>
-            <input type="email" id="email" placeholder="電子郵件" required>
-            <div class="verification-code">
-                <input type="text" id="emailCode" placeholder="郵件驗證碼">
-                <button type="button" onclick="sendVerificationCode()">發送驗證碼</button>
-            </div>
-            
-            <input type="password" id="registerPass" placeholder="密碼" 
-                   onkeyup="checkPasswordStrength(this.value)" required>
-            <div class="password-strength">
-                <div class="strength-meter"></div>
-                <span class="strength-text">密碼強度：弱</span>
-            </div>
-            
-            <input type="password" id="confirmPass" placeholder="確認密碼" 
-                   onkeyup="checkPasswordMatch()" required>
-            <div id="passwordMatch" style="color: red; display: none;">
-                密碼不匹配
-            </div>
-
-            <div class="captcha-container">
-                <img id="registerCaptchaImage" src="captcha.php" alt="驗證碼">
-                <input type="text" id="registerCaptcha" placeholder="請輸入驗證碼" required>
-                <button type="button" onclick="refreshCaptcha('registerCaptchaImage')">刷新</button>
-            </div>
-
-            <div class="terms">
-                <input type="checkbox" id="agreeTerms" required>
-                <label for="agreeTerms">
-                    我同意<a href="#" onclick="showTerms()">用戶協議</a>和
-                    <a href="#" onclick="showPrivacy()">隱私政策</a>
-                </label>
-            </div>
-
-            <button type="submit">註冊</button>
-            <p>已經有帳號？<a href="index.html">登入</a></p>
-        </form>
-    </div>
-
-    <!-- 用戶協議彈窗 -->
-    <div id="termsModal" class="modal">
-        <div class="modal-content">
-            <h3>用戶協議</h3>
-            <div class="terms-content">
-                <!-- 這裡放置用戶協議內容 -->
-            </div>
-            <button onclick="closeModal('termsModal')">關閉</button>
-        </div>
-    </div>
-
-    <!-- 隱私政策彈窗 -->
-    <div id="privacyModal" class="modal">
-        <div class="modal-content">
-            <h3>隱私政策</h3>
-            <div class="privacy-content">
-                <!-- 這裡放置隱私政策內容 -->
-            </div>
-            <button onclick="closeModal('privacyModal')">關閉</button>
-        </div>
+        <input type="text" id="registerUser" placeholder="帳號">
+        <input type="password" id="registerPass" placeholder="密碼">
+        <button onclick="register()">註冊</button>
+        <p>已經有帳號？<a href="index.html">登入</a></p>
     </div>
 
     <script src="script.js"></script>
