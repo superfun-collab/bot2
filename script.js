@@ -52,7 +52,7 @@ function login() {
     // 管理員帳號驗證
     if (user === "a0909033258@gmail.com" && pass === "love369258") {
         alert("管理員登入成功！");
-        window.location.href = "admin.html";
+        window.location.href = "admin.html";  // 修改為跳轉到管理員頁面
         return;
     }
 
@@ -65,7 +65,7 @@ function login() {
 
     if (storedPass && storedPass === pass) {
         alert("登入成功！");
-        window.location.href = "admin.html";
+        window.location.href = "index.html";  // 普通用戶跳轉到首頁
     } else {
         alert("帳號或密碼錯誤！");
     }
