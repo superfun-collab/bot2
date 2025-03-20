@@ -57,6 +57,46 @@ button {
     width: auto;
 }
 
+.google-btn {
+    background-color: #ffffff;
+    color: #757575;
+    border: 1px solid #dadce0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.google-btn:hover {
+    background-color: #f8f9fa;
+}
+
+.google-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #dadce0;
+}
+
+.divider span {
+    padding: 0 10px;
+    color: #666;
+    font-size: 14px;
+}
+
 .login-btn:hover,
 button:hover {
     background-color: #0056b3;
@@ -73,28 +113,4 @@ a {
 
 a:hover {
     text-decoration: underline;
-}
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* 右上角登入按鈕 */
-.login-btn {
-    position: fixed;
-    top: 10px;
-    right: 10px;  /* 修改為右上角 */
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.login-btn:hover {
-    background-color: #0056b3;
 }
