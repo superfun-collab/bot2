@@ -65,7 +65,7 @@ function login() {
 
     if (storedPass && storedPass === pass) {
         alert("登入成功！");
-        window.location.href = "home.html";
+        window.location.href = "admin.html";
     } else {
         alert("帳號或密碼錯誤！");
     }
