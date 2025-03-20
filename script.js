@@ -59,3 +59,17 @@ function login() {
         alert("帳號或密碼錯誤！");
     }
 }
+
+function googleLogin() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: 'YOUR_GOOGLE_CLIENT_ID'
+        }).then(function(auth2) {
+            auth2.signIn().then(function(googleUser) {
+                const profile = googleUser.getBasicProfile();
+                console.log('Google 登入成功：', profile.getName());
+                window.location.href = 'home.html';
+            });
+        });
+    });
+}
