@@ -67,8 +67,18 @@ function googleLogin() {
         }).then(function(auth2) {
             auth2.signIn().then(function(googleUser) {
                 const profile = googleUser.getBasicProfile();
-                console.log('Google 登入成功：', profile.getName());
+                const userData = {
+                    id: profile.getId(),
+                    name: profile.getName(),
+                    email: profile.getEmail(),
+                    imageUrl: profile.getImageUrl()
+                };
+                localStorage.setItem('googleUser', JSON.stringify(userData));
+                alert('Google 登入成功！');
                 window.location.href = 'home.html';
+            }).catch(function(error) {
+                console.error('登入失败：', error);
+                alert('登入失败，請稍後再試');
             });
         });
     });
