@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登入/註冊</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID">
 </head>
 <body>
     <button class="login-btn" onclick="toggleLoginForm()">登入</button>
 
     <div id="loginForm" class="container" style="display: none;">
         <h2>登入</h2>
+        <button class="google-btn" onclick="googleLogin()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo">
+            使用 Google 帳號登入
+        </button>
+        <div class="divider">
+            <span>或</span>
+        </div>
         <input type="text" id="loginUser" placeholder="帳號">
         <input type="password" id="loginPass" placeholder="密碼">
         <button onclick="login()">登入</button>
@@ -29,5 +38,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-</html>
-
