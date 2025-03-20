@@ -52,7 +52,7 @@ function login() {
     // 管理員帳號驗證
     if (user === "a0909033258@gmail.com" && pass === "love369258") {
         alert("管理員登入成功！");
-        window.location.href = "admin.html";  // 修改為跳轉到管理員頁面
+        window.location.href = "admin.html";
         return;
     }
 
@@ -65,7 +65,7 @@ function login() {
 
     if (storedPass && storedPass === pass) {
         alert("登入成功！");
-        window.location.href = "index.html";  // 普通用戶跳轉到首頁
+        window.location.href = "home.html";
     } else {
         alert("帳號或密碼錯誤！");
     }
@@ -172,47 +172,5 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStats();
         addLog('info', '管理員登入系統');
     }
-    });
-}
+});
 
-function banUser(userId) {
-    if (confirm(`確定要封禁用戶 ${userId} 嗎？`)) {
-        const userData = JSON.parse(localStorage.getItem(userId));
-        userData.status = 'banned';
-        localStorage.setItem(userId, JSON.stringify(userData));
-        alert('用戶已被封禁');
-        updateUserTable();
-    }
-}
-
-function unbanUser(userId) {
-    if (confirm(`確定要解封用戶 ${userId} 嗎？`)) {
-        const userData = JSON.parse(localStorage.getItem(userId));
-        userData.status = 'active';
-        localStorage.setItem(userId, JSON.stringify(userData));
-        alert('用戶已被解封');
-        updateUserTable();
-    }
-}
-
-function updateUserTable() {
-    const users = loadUserList();
-    const tbody = document.querySelector('#userTable tbody');
-    tbody.innerHTML = '';
-
-    users.forEach(user => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${user.id}</td>
-            <td>${user.registerTime}</td>
-            <td>${user.status || '正常'}</td>
-            <td>
-                <button onclick="${user.status === 'banned' ? `unbanUser('${user.id}')` : `banUser('${user.id}')`}" class="ban-btn">
-                    ${user.status === 'banned' ? '解封' : '封禁'}
-                </button>
-                <button onclick="deleteUser('${user.id}')" class="delete-btn">刪除</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
