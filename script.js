@@ -52,6 +52,7 @@ function login() {
     // 管理員帳號驗證
     if (user === "a0909033258@gmail.com" && pass === "love369258") {
         alert("管理員登入成功！");
+        localStorage.setItem("currentUser", user); // 記錄登入狀態
         window.location.href = "admin.html";
         return;
     }
@@ -65,13 +66,30 @@ function login() {
 
     if (storedPass && storedPass === pass) {
         alert("登入成功！");
-        window.location.href = "home.html";
+        localStorage.setItem("currentUser", user); // 記錄登入狀態
+        window.location.href = "index.html"; // **更新：一般使用者登入後跳轉到 index.html**
     } else {
         alert("帳號或密碼錯誤！");
     }
 }
 
-// 管理員後台功能
+// 登出功能
+function logout() {
+    localStorage.removeItem("currentUser");
+    alert("登出成功！");
+    window.location.href = "index.html";
+}
+
+// 顯示登入用戶名稱
+function displayUser() {
+    let user = localStorage.getItem("currentUser");
+    if (user) {
+        document.getElementById("welcomeUser").innerText = "歡迎, " + user;
+        document.getElementById("logoutBtn").style.display = "block";
+    }
+}
+
+// 用戶管理
 function loadUserList() {
     const users = [];
     for (let i = 0; i < localStorage.length; i++) {
