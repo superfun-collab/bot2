@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 左上角登入按鈕 -->
-    <button class="login-btn" onclick="window.location.href='index.html'">登入</button>
+    <!-- 右上角登入按鈕 -->
+    <button class="login-btn" onclick="toggleLoginForm()">登入</button>
 
-    <div class="container">
+    <!-- 登入表單，預設隱藏 -->
+    <div id="loginForm" class="container" style="display: none;">
         <h2>登入</h2>
         <input type="text" id="loginUser" placeholder="帳號">
         <input type="password" id="loginPass" placeholder="密碼">
         <button onclick="login()">登入</button>
         <p>還沒有帳號？<a href="register.html">註冊</a></p>
+        <button onclick="toggleLoginForm()">關閉</button>
     </div>
 
     <script src="script.js"></script>
