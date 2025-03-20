@@ -1,3 +1,21 @@
+// 切換登入 & 註冊彈出視窗
+function toggleLogin() {
+    let authBox = document.getElementById("authBox");
+    authBox.style.display = (authBox.style.display === "none" || authBox.style.display === "") ? "block" : "none";
+}
+
+// 切換到註冊表單
+function switchToRegister() {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registerForm").style.display = "block";
+}
+
+// 切換到登入表單
+function switchToLogin() {
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("registerForm").style.display = "none";
+}
+
 // 註冊功能
 function register() {
     let user = document.getElementById("registerUser").value;
@@ -12,8 +30,8 @@ function register() {
         alert("帳號已存在！");
     } else {
         localStorage.setItem(user, pass);
-        alert("註冊成功！請前往登入頁面。");
-        window.location.href = "index.html";  // 跳轉到登入頁面
+        alert("註冊成功！請登入。");
+        switchToLogin();
     }
 }
 
@@ -30,7 +48,7 @@ function login() {
     let storedPass = localStorage.getItem(user);
     if (storedPass && storedPass === pass) {
         alert("登入成功！");
-        window.location.href = "welcome.html";  // 登入後跳轉（你可以自行建立 welcome.html）
+        window.location.href = "welcome.html";  // 登入後跳轉（需自行建立）
     } else {
         alert("帳號或密碼錯誤！");
     }
