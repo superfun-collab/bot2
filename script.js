@@ -1,21 +1,3 @@
-// 切換登入 & 註冊彈出視窗
-function toggleLogin() {
-    let authBox = document.getElementById("authBox");
-    authBox.style.display = (authBox.style.display === "none" || authBox.style.display === "") ? "block" : "none";
-}
-
-// 切換到註冊表單
-function switchToRegister() {
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("registerForm").style.display = "block";
-}
-
-// 切換到登入表單
-function switchToLogin() {
-    document.getElementById("loginForm").style.display = "block";
-    document.getElementById("registerForm").style.display = "none";
-}
-
 // 註冊功能
 function register() {
     let user = document.getElementById("registerUser").value;
@@ -31,7 +13,7 @@ function register() {
     } else {
         localStorage.setItem(user, pass);
         alert("註冊成功！請登入。");
-        switchToLogin();
+        window.location.href = "index.html";  // 註冊成功後跳轉到登入頁面
     }
 }
 
